@@ -140,7 +140,14 @@ public class M3U8Parser {
             let mediaPlaylist = MediaPlaylist(originalText: params.playlist, alteredText: alteredText, type: params.playlistType,
                                               baseUrl: params.baseUrl, tags: mediaPlaylistTags, extraTags: extraTags)
             return .media(mediaPlaylist)
+        case .iframes:
+            guard let masterPlaylistTags = masterPlaylistTagsBuilder.build() else {
+                throw Error.malformedPlaylist
+            }
+            return .master(MasterPlaylist(originalText: params.playlist, alteredText: alteredText,
+                                                    baseUrl: params.baseUrl, tags: masterPlaylistTags, extraTags: extraTags))
         }
+
     }
     
     /// cancels the parsing by changing isCancelled property to true.
@@ -166,7 +173,7 @@ public class M3U8Parser {
                 self.handleMultilineTag(tagType: tagType, on: &line, lineIndex: &lineIndex, lines: &lines)
                 // handle matched tag for master/media playlists
                 switch playlistType {
-                case .master:
+                case .master, .iframes:
                     try self.handleMasterPlaylistTags(line: line,
                                                       tagType: tagType,
                                                       masterPlaylistTagsBuilder: &masterPlaylistTagsBuilder)
@@ -231,6 +238,9 @@ public class M3U8Parser {
         case is EXT_X_SESSION_KEY.Type:
             let sessionKeyTag = try tagType.init(text: line, tagType: EXT_X_SESSION_KEY.self, extraParams: nil) as? EXT_X_SESSION_KEY
             masterPlaylistTagsBuilder.sessionKeyTag = sessionKeyTag
+        case is EXT_X_I_FRAME_STREAM_INF.Type:
+            let iFrameTag = try tagType.init(text: line, tagType: EXT_X_I_FRAME_STREAM_INF.self, extraParams: nil) as! EXT_X_I_FRAME_STREAM_INF
+            masterPlaylistTagsBuilder.iFrameTags.append(iFrameTag)
         default: break
         }
     }
