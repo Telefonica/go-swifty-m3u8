@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "GoSwiftyM3U8"
-  s.version      = "1.2.0"
+  s.version      = "1.3.0"
   s.summary      = "GoSwiftyM3U8 is a framework used for parsing and handling .m3u8 files"
   s.description  = <<-DESC 
                    GoSwiftyM3U8 is used to parse and handle .m3u8 files.
