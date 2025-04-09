@@ -17,14 +17,14 @@
 
 import Foundation
 
-enum PlaylistFetcherError: LocalizedError {
+public enum PlaylistFetcherError: LocalizedError {
     case error(Error)
     case statusCode(Int)
     case noData
     case invalidData
     case timeout
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .error(let error):
             return "received an error with description: \(error.localizedDescription)"
