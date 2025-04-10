@@ -13,13 +13,13 @@ import XCTest
 final class TestsHelper {
     
     private init() {}
-    
-    static let masterPlaylistUrl = URL(fileURLWithPath: Bundle(for: TestsHelper.self).path(forResource: "Resources/AppleAdvanceStreamTS/master", ofType: "m3u8")!)
-    static let videoPlaylistUrl = URL(fileURLWithPath: Bundle(for: TestsHelper.self).path(forResource: "prog_index", ofType: "m3u8", inDirectory: "Resources/AppleAdvanceStreamTS/v5")!)
-    static let audioPlaylistUrl = URL(fileURLWithPath: Bundle(for: TestsHelper.self).path(forResource: "prog_index", ofType: "m3u8", inDirectory: "Resources/AppleAdvanceStreamTS/a1")!)
-    static let subtitlesPlaylistUrl = URL(fileURLWithPath: Bundle(for: TestsHelper.self).path(forResource: "prog_index", ofType: "m3u8", inDirectory: "Resources/AppleAdvanceStreamTS/s1/en")!)
-    static let videoPlaylistAes128Url = URL(fileURLWithPath: Bundle(for: TestsHelper.self).path(forResource: "video-aes-128", ofType: "m3u8", inDirectory: "Resources")!)
-    
+
+    static let masterPlaylistUrl = URL(fileURLWithPath: Bundle.module.path(forResource: "AppleAdvanceStreamTS/master", ofType: "m3u8")!)
+    static let videoPlaylistUrl = URL(fileURLWithPath: Bundle.module.path(forResource: "prog_index", ofType: "m3u8", inDirectory: "AppleAdvanceStreamTS/v5")!)
+    static let audioPlaylistUrl = URL(fileURLWithPath: Bundle.module.path(forResource: "prog_index", ofType: "m3u8", inDirectory: "AppleAdvanceStreamTS/a1")!)
+    static let subtitlesPlaylistUrl = URL(fileURLWithPath: Bundle.module.path(forResource: "prog_index", ofType: "m3u8", inDirectory: "AppleAdvanceStreamTS/s1/en")!)
+    static let videoPlaylistAes128Url = URL(fileURLWithPath: Bundle.module.path(forResource: "video-aes-128", ofType: "m3u8")!)
+
     static func masterPlaylistTest(masterPlaylist: MasterPlaylist) {
         XCTAssertEqual(masterPlaylist.tags.versionTag?.value, 6)
         XCTAssertEqual(masterPlaylist.tags.mediaTags.count, 5)
